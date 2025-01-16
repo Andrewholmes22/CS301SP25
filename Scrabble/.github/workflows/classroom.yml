@@ -1,0 +1,84 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: P1 tests
+      id: p1-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P1 tests
+        setup-command: pip install pytest
+        command: pytest test_P1.py
+        timeout: 10
+        max-score: 20
+    - name: P2 tests
+      id: p2-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P2 tests
+        command: pytest test_P2.py
+        timeout: 10
+        max-score: 20
+    - name: P3 tests
+      id: p3-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P3 tests
+        command: pytest test_P3.py
+        timeout: 10
+        max-score: 20
+    - name: P4 tests
+      id: p4-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P4 tests
+        command: pytest test_P4.py
+        timeout: 10
+        max-score: 20
+    - name: P5 tests
+      id: p5-tests
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P5 tests
+        command: pytest test_P5.py
+        timeout: 10
+        max-score: 20
+    - name: P6 slow test
+      id: p6-slow-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P6 slow test
+        command: pytest test_P6.py
+        timeout: 10
+        max-score: 5
+    - name: P6 fast test
+      id: p6-fast-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: P6 fast test
+        command: pytest test_P6.py
+        timeout: 1
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        P1-TESTS_RESULTS: "${{steps.p1-tests.outputs.result}}"     
+        P2-TESTS_RESULTS: "${{steps.p2-tests.outputs.result}}"
+        P3-TESTS_RESULTS: "${{steps.p3-tests.outputs.result}}"
+        P4-TESTS_RESULTS: "${{steps.p4-tests.outputs.result}}"      
+        P5-TESTS_RESULTS: "${{steps.p5-tests.outputs.result}}"  
+        P6-SLOW-TEST_RESULTS: "${{steps.p6-slow-test.outputs.result}}"
+        P6-FAST-TEST_RESULTS: "${{steps.p6-fast-test.outputs.result}}"
+      with:
+        runners: p1-tests, p2-tests, p3-tests, p4-tests, p5-tests, p6-slow-test, p6-fast-test
