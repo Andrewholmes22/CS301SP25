@@ -56,8 +56,11 @@ def benchmark(testfunction, inputvalue):
 
 
 def SumInt(n):
-  # TODO:  Implement me!
-  pass
+  if n<=0:
+    return "must be a positive integer"
+  else:
+     return (n*(n+1))//2
+  
 
 ######  Problem #2 #########################
 """ ValidWord should output True if the
@@ -65,7 +68,7 @@ def SumInt(n):
     words.txt and False if not."""
 
 def ValidWord(input_word):
-  # TODO:  Implement me!
+  return input_word in wordlist
   pass
 
 ######  Problem #3 #########################
