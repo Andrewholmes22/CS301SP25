@@ -1,4 +1,21 @@
-import Stack from lists.py
+import pytest
+from lists import *
 s=Stack()
 s.push(1)
-s.__repr__()
+s.push(2)
+s.push(3)
+print(s.__repr__())
+print(s.pop())
+print(s.pop())
+print(s.pop())
+print(s.isEmpty())
+print("")
+x=Queue()
+x.enqueue(1)
+x.enqueue(2)
+x.enqueue(3)
+print(x.__repr__())
+print(x.dequeue())
+print(x.dequeue())
+print(x.dequeue())
+print(x.isEmpty())

@@ -82,12 +82,13 @@ class Queue:
       return temp
     
     def isEmpty(self):  
-      # TODO:  Implement me!
-      pass
-    
+      if len(self.list) == 0:
+        return True
+      else:
+        return False
+          
     def size(self):
-      # TODO:  Implement me!
-      pass
+      return len(self.list)
 
 """
 ####  Explaination of the Big O running time ####
@@ -103,36 +104,36 @@ class Queue:
 class Deque:
 
     def __init__(self):
-      # TO DO:  Implement me!
+      self.list = []
       pass
 
     def __repr__(self):
-      # TO DO:  Implement me!
-      pass       
+      return "Deque: "+str(self.list)
     
     def addFront(self, item): 
-      # TODO:  Implement me!
-      pass
+      self.list.insert(0,item)
     
     def removeFront(self):  
-      # TODO:  Implement me!
-      pass
+      temp=self.list[0]
+      self.list.remove(self.list[0])
+      return temp
 
     def addRear(self, item): 
-      # TODO:  Implement me!
-      pass
+      self.list.append(item)
     
     def removeRear(self):  
-      # TODO:  Implement me!
-      pass
+      temp=self.list[len(self.list)-1]
+      self.list.remove(self.list[len(self.list)-1])
+      return temp
     
     def isEmpty(self):  
-      # TODO:  Implement me!
-      pass
+      if len(self.list) == 0:
+        return True
+      else:
+        return False
     
     def size(self):
-      # TODO:  Implement me!
-      pass
+      return len(self.list)
 
 """
 ####  Explaination of the Big O running time ####
@@ -147,13 +148,13 @@ class Deque:
 
 class Node:
 
-    def __init__(self):
-      # TO DO:  Implement me!
-      pass
+    def __init__(self, InputValue=None):
+      self.data = InputValue
+      self.next = None
 
     def __repr__(self):
       # TO DO:  Implement me!
-      pass   
+      pass  
         
     # Also TO DO:  Implement the rest of the Node class!
 
@@ -318,6 +319,15 @@ s.push(3)
 print(s.__repr__())
 print(s.pop())
 print(s.pop())
-print(s.peek())
 print(s.pop())
 print(s.isEmpty())
+print("")
+x=Queue()
+x.enqueue(1)
+x.enqueue(2)
+x.enqueue(3)
+print(x.__repr__())
+print(x.dequeue())
+print(x.dequeue())
+print(x.dequeue())
+print(x.isEmpty())
