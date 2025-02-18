@@ -153,60 +153,143 @@ class Node:
       self.next = None
 
     def __repr__(self):
-      # TO DO:  Implement me!
-      pass  
-        
+      return "Node: "+str(self.data)
+    
     # Also TO DO:  Implement the rest of the Node class!
 
 class Linked_List:
 
     def __init__(self):
-      # TO DO:  Implement me!
+      self.firstnode=None
       pass
 
     def __repr__(self):
-      # TO DO:  Implement me!
-      pass   
+      output="start--->"
+      current=self.firstnode
+      while current != None:
+        output=output+str(current.data)+"--->"
+        current=current.next
+      output=output+"end"
+      return output
+      
     
     def add(self, item): 
-      # TODO:  Implement me!
-      pass
+      newnode=Node(item)
+      newnode.next=self.firstnode
+      self.firstnode=newnode
     
     def remove(self, item):  
-      # TODO:  Implement me!
-      pass
-    
-    def search(self, item):  
-      # TODO:  Implement me!
-      pass
+      current=self.firstnode
+      previous=None
+      found=False
+      while not found:
+        if current.data==item:
+          found=True
+        else:
+          previous=current
+          current=current.next
+      if previous==None:
+        self.firstnode=current.next
+      else:
+        previous.next=current.next
+      return found
+        
+            
+    def search(self, item):
+      current=self.firstnode
+      found=False
+      while current != None and not found:
+        if current.data==item:
+          found=True
+        else:
+          current=current.next
+      return found
 
-    def isEmpty(self):  
-      # TODO:  Implement me!
-      pass
+    def isEmpty(self):
+      if self.firstnode==None:
+        return True
+      else:
+        return False
     
     def size(self):
-      # TODO:  Implement me!
-      pass
+      count=0
+      current=self.firstnode
+      while current != None:
+        count+=1
+        current=current.next
+      return count
 
     def append(self, item): 
-      # TODO:  Implement me!
-      pass
+      newnode=Node(item)
+      current=self.firstnode
+      if current==None:
+        self.firstnode=newnode
+      else:
+        while current.next != None:
+          current=current.next
+        current.next=newnode
     
     def index(self, item):  
-      # TODO:  Implement me!
-      pass
+      current=self.firstnode
+      found=False
+      count=0
+      while current != None and not found:
+        if current.data==item:
+          found=True
+        else:
+          current=current.next
+          count+=1
+      if found:
+        return count
+      else:
+        return LookupError("Item not found")
     
     def insert(self, pos, item):  
-      # TODO:  Implement me!
-      pass
+      current=self.firstnode
+      if pos==0:
+        newnode=Node(item)
+        newnode.next=self.firstnode
+        self.firstnode=newnode
+      else:
+        count=0
+        while current != None and count+1 != pos:
+          current=current.next
+          count+=1
+        if current != None:
+          newnode=Node(item)
+          newnode.next=current.next
+          current.next=newnode    
+        else: 
+          print("Index out of range")
 
-    def pop(self):  
-      # TODO:  Implement me!
-      pass
+
+    def pop(self):
+      current=self.firstnode
+      previous=None
+      while current.next != None:
+        previous=current
+        current=current.next
+      if previous==None:
+        self.firstnode=None
+      else:
+        previous.next=None
+      return current.data
     
     def popfrom(self, pos):
-      # TODO:  Implement me!
-      pass
+      current=self.firstnode
+      previous=None
+      count=0
+      if pos==0:
+        self.firstnode=self.firstnode.next
+      else:
+        while current != None and count+1 != pos:
+          previous=current
+          current=current.next
+          count+=1
+        if current != None:
+          previous.next=current.next
+        else:
+          print("Index out of range")
 
 """
 ####  Explaination of the Big O running time ####
@@ -221,12 +304,11 @@ class Linked_List:
 class DLL_Node:
 
     def __init__(self):
-      # TO DO:  Implement me!
-      pass
+      self.firstnode=None
+      
 
     def __repr__(self):
-      # TO DO:  Implement me!
-      pass   
+      return "Node: "+str(self.data)   
 
     # Also TO DO:  Implement the rest of the DLL_Node class!
 
@@ -311,23 +393,3 @@ class Doubly_Linked_List:
 
 
 """
-
-s=Stack()
-s.push(1)
-s.push(2)
-s.push(3)
-print(s.__repr__())
-print(s.pop())
-print(s.pop())
-print(s.pop())
-print(s.isEmpty())
-print("")
-x=Queue()
-x.enqueue(1)
-x.enqueue(2)
-x.enqueue(3)
-print(x.__repr__())
-print(x.dequeue())
-print(x.dequeue())
-print(x.dequeue())
-print(x.isEmpty())
